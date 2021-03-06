@@ -1,2 +1,2 @@
 all:
-	go build bpNoteCSV2json/main.go 
+	go build -o csv2json ./bpNoteCSV2json

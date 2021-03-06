@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -117,6 +118,7 @@ func parseLine(line []string) ([]BpNote, error) {
 	}
 	return bpn, nil
 }
+
 func csv2json(filepath string) error {
 	if filepath == "" {
 		return nil
@@ -161,20 +163,31 @@ func csv2json(filepath string) error {
 		if err != nil {
 			return err
 		}
-		for _, bpn := range bpns {
-			fmt.Println(bpn)
-		}
+		_ = bpns
+		/*
+			for _, bpn := range bpns {
+				fmt.Println(bpn)
+			}
+		*/
 	}
 	return nil
 }
 
 func main_() int {
-	fmt.Println("main_()")
 	if len(os.Args) < 2 {
 		fmt.Printf("error len(os.Args):%v", len(os.Args))
 		return 1
 	}
-	err := csv2json(os.Args[1])
+
+	jsMap := getBpRequest()
+	//fmt.Println(jsMap)
+	js, err := json.Marshal(jsMap)
+	if err != nil {
+		fmt.Printf("err : %s\n", err)
+	}
+	fmt.Printf("%s\n", js)
+
+	err = csv2json(os.Args[1])
 	if err != nil {
 		fmt.Printf("err : %s\n", err)
 	}
