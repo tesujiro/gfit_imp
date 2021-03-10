@@ -1,2 +1,2 @@
 # gfit_imp
-Google Fit Importer
+Google Fit Importer from external data
